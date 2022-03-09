@@ -15,6 +15,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  templateIds: {
+    type: Array,
+    default: []
+  },
   points: {
     type: Number,
     default: 0

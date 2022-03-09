@@ -12,7 +12,6 @@ const Login = props => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log(props)
       navigate('/')
       // props.history.push('/');
     }

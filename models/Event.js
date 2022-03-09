@@ -5,20 +5,8 @@ const EventSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  title: {
+  templateId: {
     type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  type: {
-    type: String,
-    required: true
-  },
-  points: {
-    type: Number,
     required: true
   },
   date: {

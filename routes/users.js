@@ -72,11 +72,13 @@ router.put('/', [
     auth, 
     check('email', 'Please include a vaild email').isEmail()
   ], async (req, res) => {
-    const { username, email } = req.body;
+    const { username, email, templateIds, points } = req.body;
 
     const userFeilds = {};
     if (username) userFeilds.username = username;
     if (email) userFeilds.email = email;
+    if (templateIds) userFeilds.templateIds = templateIds;
+    if (points) userFeilds.points = points;
 
     try {
       let user = await User.findById(req.user.id);
@@ -97,5 +99,29 @@ router.put('/', [
     }
   }
 );
+
+// @route   PUT api/users/:templateId
+// @desc    Add templat to a Users templateIds array
+// @access  Pivate
+router.put('/:templateId', auth, async (req, res) => {
+
+  try {
+    let user = await User.findById(req.user.id);
+
+    if (!user) return res.status(404).json({msg: 'User not found'})
+
+    user = await User.findByIdAndUpdate(
+      req.user.id,
+      {$addToSet: { templateIds: req.params.templateId }},
+      {new: true}
+    );
+
+    res.json(user);
+  } catch (err) {
+    console.log('***** ERROR FOUND ******');
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 module.exports = router;

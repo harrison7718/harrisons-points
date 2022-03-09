@@ -6,6 +6,7 @@ import Register from './components/auth/Register'
 import Login from './components/auth/Login'
 
 import AuthState from './context/auth/AuthState';
+import AppState from './context/app/AppState';
 import setAuthToken from './utils/setAuthToken';
 import './App.css';
 
@@ -16,18 +17,20 @@ if (localStorage.token) {
 const App = () => {
   return (
     <AuthState>
-      <Router>
-        <div className="App">
-          <Navbar />
-          <div className='container'>
-            <Routes>
-              <Route exact path='/' element={<HomePage/>}/>
-              <Route exact path='/register' element={<Register/>}/>
-              <Route exact path='/login' element={<Login/>}/>
-            </Routes>
+      <AppState>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <div className='container'>
+              <Routes>
+                <Route exact path='/' element={<HomePage/>}/>
+                <Route exact path='/register' element={<Register/>}/>
+                <Route exact path='/login' element={<Login/>}/>
+              </Routes>
+            </div>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </AppState>
     </AuthState>
   );
 }
